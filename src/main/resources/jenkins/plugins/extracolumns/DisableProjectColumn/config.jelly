@@ -1,7 +1,7 @@
 <!--
 The MIT License
 
-Copyright (c) 2004-2009, Sun Microsystems, Inc., Kohsuke Kawaguchi, Martin Eigenbrodt
+Copyright (c) 2011, Frederic Gurr
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -24,26 +24,7 @@ THE SOFTWARE.
 
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt">
-	<j:set var="it" value="${job}"/>
-	<td>
-		<j:if test="${job.hasPermission(job.CONFIGURE)}">
-			<j:choose>
-				<j:when test="${it.disabled}">
-				<!-- TODO: redirect to original page or is there another way to disable/enable projects -->
-					<form method="post" action="${it.url}enable">
-						<l:hasPermission permission="${it.CONFIGURE}">
-							<f:submit value="${%Enable Project}" />
-						</l:hasPermission>
-					</form>
-				</j:when>
-				<j:otherwise>
-					<form method="post" action="${job.url}disable">
-						<l:hasPermission permission="${it.CONFIGURE}">
-							<f:submit value="${%Disable Project}" />
-						</l:hasPermission>
-					</form>
-				</j:otherwise>
-			</j:choose>
-		</j:if>      
-	</td>
+    <f:block>
+        <p>${%This column adds a button for disabling/enabling a project.}</p>
+    </f:block>
 </j:jelly>

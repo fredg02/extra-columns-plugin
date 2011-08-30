@@ -1,5 +1,4 @@
-package hudson.views;
-
+package jenkins.plugins.extracolumns;
 
 import org.kohsuke.stapler.DataBoundConstructor;
 
@@ -7,17 +6,21 @@ import hudson.Extension;
 import hudson.views.ListViewColumn;
 import hudson.views.ListViewColumnDescriptor;
 
-public class ConfigureShortcutColumn extends ListViewColumn {
+public class DisableProjectColumn extends ListViewColumn {
 
-	@DataBoundConstructor
-	public ConfigureShortcutColumn() {
-	}
+    @DataBoundConstructor
+    public DisableProjectColumn() {
+    }
 
     @Extension
     public static class DescriptorImpl extends ListViewColumnDescriptor {
         @Override
         public String getDisplayName() {
-            return "Configure Shortcut";
+            return Messages.DisableProjectColumn_DisplayName();
+        }
+        
+        public boolean shownByDefault() {
+            return false;
         }
     }
 

@@ -1,7 +1,7 @@
 <!--
 The MIT License
 
-Copyright (c) 2004-2009, Sun Microsystems, Inc., Kohsuke Kawaguchi, Martin Eigenbrodt
+Copyright (c) 2011, Frederic Gurr
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -24,11 +24,17 @@ THE SOFTWARE.
 
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt">
-  <td>
-    <j:if test="${job.hasPermission(job.CONFIGURE)}">
-      <a href="${jobBaseUrl}${job.shortUrl}configure">
-        <img src="${imagesURL}/24x24/setting.png" title="${%Configure job}" alt="${%Configure job}" border="0"/>
-      </a>
-    </j:if>
-  </td>
+    <j:set var="it" value="${job}"/>
+    <td>
+        <j:if test="${job.hasPermission(job.CONFIGURE)}">
+            <j:choose>
+                <j:when test="${it.disabled}">
+                    <input type="button" class="submit-button" value="${%Enable Project}" onclick="javascript:new Ajax.Request('${it.Url}enable', {method: 'post'});setTimeout('window.location.reload()', 1000)"/>
+                </j:when>
+                <j:otherwise>
+                    <input type="button" class="submit-button" value="${%Disable Project}" onclick="javascript:new Ajax.Request('${it.Url}disable', {method: 'post'});setTimeout('window.location.reload()', 1000)"/>
+                </j:otherwise>
+            </j:choose>
+        </j:if>
+    </td> 
 </j:jelly>
