@@ -27,7 +27,14 @@ THE SOFTWARE.
     <td>
         <j:if test="${job.hasPermission(job.CONFIGURE)}">
             <a href="${jobBaseUrl}${job.shortUrl}configure">
-                <img src="${imagesURL}/24x24/setting.png" title="${%Configure project}" alt="${%Configure project}" border="0"/>
+                <j:choose>
+                    <j:when test="${it.isVersion1430()}">
+                        <img src="${imagesURL}/${subIconSize}/setting.png" title="${%Configure project}" alt="${%Configure project}" border="0"/>
+                    </j:when>
+                    <j:otherwise>
+                        <img src="${imagesURL}/24x24/setting.png" title="${%Configure project}" alt="${%Configure project}" border="0"/>
+                    </j:otherwise>
+                </j:choose>
             </a>
         </j:if>
     </td>

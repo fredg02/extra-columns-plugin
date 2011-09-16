@@ -27,15 +27,23 @@ import org.kohsuke.stapler.DataBoundConstructor;
 
 import hudson.Extension;
 import hudson.model.Items;
+import hudson.model.Hudson;
+import hudson.util.VersionNumber;
 import hudson.views.ListViewColumn;
 import hudson.views.ListViewColumnDescriptor;
 
 public class ConfigureProjectColumn extends ListViewColumn {
 
+    
     @DataBoundConstructor
     public ConfigureProjectColumn() {
     }
 
+    public boolean isVersion1430(){
+        return Hudson.getVersion().equals(new VersionNumber("1.430")) || Hudson.getVersion().isNewerThan(new VersionNumber("1.430")) ;
+    }
+
+    
     @Extension
     public static class DescriptorImpl extends ListViewColumnDescriptor {
 
@@ -50,6 +58,10 @@ public class ConfigureProjectColumn extends ListViewColumn {
 
         public boolean shownByDefault() {
             return false;
+        }
+        
+        public boolean isVersion1427(){
+            return true;
         }
     }
 
