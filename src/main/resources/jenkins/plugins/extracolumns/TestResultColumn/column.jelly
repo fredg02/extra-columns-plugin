@@ -28,7 +28,7 @@ THE SOFTWARE.
     <td data="${tr != null ? tr.getFailCount() : '0'}">
         <j:choose>
             <j:when test="${tr!=null}">
-                <a href="${job.url}lastCompletedBuild/testReport/"><t:test-result it="${tr}" /></a>
+                <a href="${job.url}lastCompletedBuild/${tr.urlName}/"><t:test-result it="${tr}" /></a>
             </j:when>
             <j:otherwise>
             ${%N/A}
