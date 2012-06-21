@@ -9,7 +9,7 @@
     <artifactId>extra-columns</artifactId>
     <packaging>hpi</packaging>
     <version>1.4-SNAPSHOT</version>
-    <name>Jenkins Extra Columns plugin</name>
+    <name>Extra Columns Plugin</name>
     <url>http://wiki.jenkins-ci.org/display/JENKINS/Extra+Columns+Plugin</url>
 
     <developers>
