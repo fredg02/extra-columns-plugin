@@ -88,10 +88,10 @@ public class DescriptionColumnTest {
     public void formatWithoutTrimming() throws IOException {
         DescriptionColumn plugin = new DescriptionColumn(false, false, 2);
         job.setDescription(SIMPLE_DESCRIPTION);
-        String result = plugin.formatDescription(job);
+        String result = plugin.getDescription(job);
         assertEquals(SIMPLE_DESCRIPTION, result);
         job.setDescription(MULTILINE_DESCRIPTION);
-        result = plugin.formatDescription(job);
+        result = plugin.getDescription(job);
         assertEquals(MULTILINE_DESCRIPTION, result);
     }
 
@@ -99,13 +99,13 @@ public class DescriptionColumnTest {
     public void formatWithTrimming() throws IOException {
         DescriptionColumn plugin = new DescriptionColumn(false, true, 2);
         job.setDescription(SIMPLE_DESCRIPTION);
-        String result = plugin.formatDescription(job);
+        String result = plugin.getDescription(job);
         assertEquals(SIMPLE_DESCRIPTION, result);
         job.setDescription(MULTILINE_DESCRIPTION);
-        result = plugin.formatDescription(job);
+        result = plugin.getDescription(job);
         assertEquals("Just a test<br/>Another Line", result);
         plugin = new DescriptionColumn(false, true, 7);
-        result = plugin.formatDescription(job);
+        result = plugin.getDescription(job);
         assertEquals("Just a test<br/>Another Line<br/>One <b>more</b> line<br/>Last line", result);
     }
 
@@ -113,7 +113,7 @@ public class DescriptionColumnTest {
     public void displayName() throws IOException {
         DescriptionColumn plugin = new DescriptionColumn(true, false, 2);
         job.setDescription(SIMPLE_DESCRIPTION);
-        String result = plugin.formatDescription(job);
+        String result = plugin.getDescription(job);
         assertEquals("<b>My Job</b><br/>Just a test", result);
     }
 }
