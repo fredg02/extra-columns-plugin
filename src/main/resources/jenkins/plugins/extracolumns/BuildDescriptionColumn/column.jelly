@@ -24,6 +24,8 @@
 
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core">
-  <j:set var="job" value="${job}"/>
-  <td>${it.getBuildDescription(job)}</td>
+  <j:set var="buildDesc" value="${it.getBuildDescription(job)}"/>
+  <td>
+    <j:out value="${buildDesc!=null ? app.markupFormatter.translate(buildDesc) : ''}" />
+  </td>
 </j:jelly>

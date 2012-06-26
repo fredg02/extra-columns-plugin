@@ -60,7 +60,15 @@ public class DescriptionColumn extends ListViewColumn {
         return displayLength;
     }
 
-    public String formatDescription(@SuppressWarnings("rawtypes") Job job) {
+    public String getToolTip(@SuppressWarnings("rawtypes") Job job) {
+        return formatDescription(job, false);
+    }
+    
+    public String getDescription(@SuppressWarnings("rawtypes") Job job){
+        return formatDescription(job, isTrim());
+    }
+    
+    private String formatDescription(@SuppressWarnings("rawtypes") Job job, boolean trimIt) {
         if (job == null) {
             return null;
         }
@@ -69,10 +77,10 @@ public class DescriptionColumn extends ListViewColumn {
         }
 
         StringBuffer sb = new StringBuffer();
-        if (displayName) {
+        if (isDisplayName()) {
             sb.append("<b>").append(job.getDisplayName()).append("</b><br/>");
         }
-        if (!trim) {
+        if (!trimIt) {
             sb.append(job.getDescription());
         } else {
             String[] parts = job.getDescription().split(SEPARATORS_REGEX);
