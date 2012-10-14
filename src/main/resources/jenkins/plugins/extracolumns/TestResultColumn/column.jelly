@@ -25,10 +25,54 @@ THE SOFTWARE.
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt">
     <j:set var="tr" value="${job.lastCompletedBuild.testResultAction}"/>
-    <td data="${tr != null ? tr.getFailCount() : '0'}">
-        <j:choose>
-            <j:when test="${tr!=null}">
-                <a href="${job.url}lastCompletedBuild/${tr.urlName}/"><t:test-result it="${tr}" /></a>
+    <j:set var="passCount" value="${tr.totalCount-tr.failCount}"/>
+
+    <!-- ${tr.totalCount==1?'test':'tests'} -->
+    <j:choose>
+        <j:when test="${tr==null}">
+            <j:set var="sortData" value="0"/>
+        </j:when>
+        <j:when test="${tr!=null and it.getTestResultFormat()==2}">
+            <j:set var="sortData" value="${tr.totalCount}"/>
+            <j:set var="testResultString" value="${%total(tr.totalCount)}"/>
+        </j:when>
+        <j:when test="${tr!=null and it.getTestResultFormat()==3}">
+            <j:set var="sortData" value="${tr.failCount}"/>
+            <j:set var="testResultString" value="${%failed(tr.failCount)}"/>
+        </j:when>
+        <j:when test="${tr!=null and it.getTestResultFormat()==4}">
+            <j:set var="sortData" value="${passCount}"/>
+            <j:set var="testResultString" value="${%passed(passCount)}"/>
+        </j:when>
+        <j:when test="${tr!=null and it.getTestResultFormat()==5}">
+            <j:set var="sortData" value="${tr.skipCount}"/>
+            <j:set var="testResultString" value="${%skipped(tr.skipCount)}"/>
+        </j:when>
+        <j:otherwise>
+            <j:set var="sortData" value="${tr.failCount}"/>
+        </j:otherwise>
+    </j:choose>
+    <td data="${sortData}">
+	    <j:choose>
+	        <j:when test="${tr!=null}">
+                <a href="${job.url}lastCompletedBuild/${tr.urlName}/">
+                <j:choose>
+                    <j:when test="${it.totalCount==0}">
+                    (${%no tests})
+                    </j:when>
+
+                    <j:when test="${it.getTestResultFormat()==0}">
+                        <t:test-result it="${tr}" />
+                    </j:when>
+                    <j:when test="${it.getTestResultFormat()==1}">
+                        <!-- format according to Jira JENKINS-15155 -->
+                        ${%x_of_y_failed(tr.failCount, tr.totalCount, h.getDiffString(tr.getFailCount()-tr.getPreviousResult().getFailCount()))}
+                    </j:when>
+                    <j:otherwise>
+                        ${testResultString}
+                    </j:otherwise>
+                </j:choose>
+                </a>
             </j:when>
             <j:otherwise>
             ${%N/A}

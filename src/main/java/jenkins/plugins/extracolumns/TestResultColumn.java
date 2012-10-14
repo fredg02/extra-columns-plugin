@@ -32,8 +32,16 @@ import hudson.views.ListViewColumnDescriptor;
 
 public class TestResultColumn extends ListViewColumn {
 
+    private int testResultFormat;
+    
     @DataBoundConstructor
-    public TestResultColumn() {
+    public TestResultColumn(int testResultFormat) {
+        super();
+        this.testResultFormat = testResultFormat;
+    }
+    
+    public int getTestResultFormat(){
+        return testResultFormat;
     }
 
     @Extension
@@ -44,12 +52,18 @@ public class TestResultColumn extends ListViewColumn {
         }
 
         @Override
+        public boolean shownByDefault() {
+            return false;
+        }
+
+        @Override
         public String getDisplayName() {
             return Messages.TestResultColumn_DisplayName();
         }
-
-        public boolean shownByDefault() {
-            return false;
+        
+        @Override
+        public String getHelpFile() {
+            return "/plugin/extra-columns/help-testresult-column.html";
         }
     }
 
