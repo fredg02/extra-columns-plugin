@@ -27,7 +27,7 @@ THE SOFTWARE.
     <f:block>
         <tr>
             <td width="50">
-               <img src="${rootURL}/plugin/extra-columns/images/48x48/switch-on.png" title="${%Enabled/disabled icon}" alt="${%Enabled/disabled icon}" border="0"/>
+               <img src="${rootURL}/plugin/extra-columns/images/48x48/switch-on.png" title="${%Enable/disable project icon}" alt="${%Enable/disable project icon}" border="0"/>
            </td>
             <td colspan="2">
                 <p>${%This column adds a button or an icon for disabling/enabling a project.}</p>
