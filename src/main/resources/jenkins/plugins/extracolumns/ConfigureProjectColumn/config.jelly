@@ -25,6 +25,13 @@ THE SOFTWARE.
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt">
     <f:block>
-        <p>${%This column adds a shortcut to the configuration page of a project.}</p>
+        <tr>
+            <td width="50">
+                <img src="${imagesURL}/48x48/setting.png" title="${%Configure project icon}" alt="${%Configure project icon}" border="0"/>
+            </td>
+            <td colspan="2">
+                <p>${%This column adds a shortcut to the configuration page of a project.}</p>
+            </td>
+        </tr>
     </f:block>
 </j:jelly>
