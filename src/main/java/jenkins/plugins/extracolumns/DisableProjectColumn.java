@@ -32,8 +32,16 @@ import hudson.views.ListViewColumnDescriptor;
 
 public class DisableProjectColumn extends ListViewColumn {
 
+    private boolean useIcon;
+
     @DataBoundConstructor
-    public DisableProjectColumn() {
+    public DisableProjectColumn(boolean useIcon) {
+        super();
+        this.useIcon = useIcon;
+    }
+
+    public boolean useIcon(){
+        return useIcon;
     }
 
     @Extension

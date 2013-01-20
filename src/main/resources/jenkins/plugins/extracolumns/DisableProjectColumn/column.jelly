@@ -22,17 +22,35 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -->
 
+<!-- TODO: Try to make this simpler. -->
+
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt">
-    <j:set var="it" value="${job}"/>
     <td>
         <j:if test="${job.hasPermission(job.CONFIGURE)}">
             <j:choose>
-                <j:when test="${it.disabled}">
-                    <input type="button" class="submit-button" value="${%Enable Project}" onclick="javascript:new Ajax.Request('${it.Url}enable', {method: 'post'});setTimeout('window.location.reload()', 1000)"/>
+                <!-- choose disabled state and enabled state -->
+                <j:when test="${job.disabled}">
+                    <!-- choose between icon and button -->
+                    <j:choose>
+                        <j:when test="${it.useIcon()}">
+                            <img src="${rootURL}/plugin/extra-columns/images/${subIconSize}/switch-off.png" title="${%Project disabled - Click to enable}" alt="${%Project disabled - Click to enable}" border="0" onclick="javascript:new Ajax.Request('${it.Url}enable', {method: 'post'});setTimeout('window.location.reload()', 1000)"/>
+                        </j:when>
+                        <j:otherwise>
+                            <input type="button" class="submit-button" value="${%Enable Project}" onclick="javascript:new Ajax.Request('${it.Url}enable', {method: 'post'});setTimeout('window.location.reload()', 1000)"/>
+                        </j:otherwise>
+                    </j:choose>
                 </j:when>
                 <j:otherwise>
-                    <input type="button" class="submit-button" value="${%Disable Project}" onclick="javascript:new Ajax.Request('${it.Url}disable', {method: 'post'});setTimeout('window.location.reload()', 1000)"/>
+                    <!-- choose between icon and button -->
+                    <j:choose>
+                        <j:when test="${it.useIcon()}">
+                            <img src="${rootURL}/plugin/extra-columns/images/${subIconSize}/switch-on.png" title="${%Project enabled - Click to disable}" alt="${%Project enabled - Click to disable}" border="0" onclick="javascript:new Ajax.Request('${it.Url}disable', {method: 'post'});setTimeout('window.location.reload()', 1000)"/>
+                        </j:when>
+                        <j:otherwise>
+                            <input type="button" class="submit-button" value="${%Disable Project}" onclick="javascript:new Ajax.Request('${it.Url}disable', {method: 'post'});setTimeout('window.location.reload()', 1000)"/>
+                        </j:otherwise>
+                    </j:choose>
                 </j:otherwise>
             </j:choose>
         </j:if>
