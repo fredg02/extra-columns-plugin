@@ -24,11 +24,20 @@ THE SOFTWARE.
 
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt">
+    <!-- workaround for missing 32x32 terminal.png -->
+    <j:choose>
+        <j:when test="${iconSize == '32x32'}">
+            <j:set var="imgUrl" value="${rootURL}/plugin/extra-columns/images"/>
+        </j:when>
+        <j:otherwise>
+            <j:set var="imgUrl" value="${imagesURL}"/>
+        </j:otherwise>
+    </j:choose>
     <td>
         <j:if test="${job.hasPermission(job.READ)}">
             <j:if test="${job.getLastBuild() != null}">
                 <a href="${jobBaseUrl}${job.shortUrl}lastBuild/console">
-                    <img src="${imagesURL}/${subIconSize}/terminal.png" title="${%Last/current build console output}" alt="${%Last/current build console output}" border="0"/>
+                    <img src="${imgUrl}/${iconSize}/terminal.png" title="${%Last/current build console output}" alt="${%Last/current build console output}" border="0"/>
                 </a>
             </j:if>
         </j:if>
