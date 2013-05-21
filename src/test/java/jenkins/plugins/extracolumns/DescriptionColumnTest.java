@@ -114,6 +114,6 @@ public class DescriptionColumnTest {
         DescriptionColumn plugin = new DescriptionColumn(true, false, 2);
         job.setDescription(SIMPLE_DESCRIPTION);
         String result = plugin.getDescription(job);
-        assertEquals("<b>My Job</b><br/>Just a test", result);
+        assertEquals("Just a test", result);
     }
 }
