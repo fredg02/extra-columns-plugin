@@ -26,5 +26,13 @@
 <j:jelly xmlns:j="jelly:core">
   <j:set var="desc" value="${it.getDescription(job)}"/>
   <j:set var="tooltipdesc" value="${it.getToolTip(job)}"/>
-  <td tooltip="${tooltipdesc}"><j:out value="${app.markupFormatter.translate(desc)}" /></td>
+  <j:set var="relativeDisplayName" value="${job.getRelativeDisplayNameFrom(currentView.owner.itemGroup)}"/>
+  <td>
+    <j:if test="${it.isDisplayName()}">
+      <a href="${jobBaseUrl}${job.shortUrl}" class='model-link inside'>${relativeDisplayName != null ? relativeDisplayName : job.displayName}</a><br/>
+    </j:if>
+    <div tooltip="${tooltipdesc}">
+      <j:out value="${app.markupFormatter.translate(desc)}"/>
+    </div>
+  </td>
 </j:jelly>

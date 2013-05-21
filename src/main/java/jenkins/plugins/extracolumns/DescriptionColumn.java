@@ -77,9 +77,6 @@ public class DescriptionColumn extends ListViewColumn {
         }
 
         StringBuffer sb = new StringBuffer();
-        if (isDisplayName()) {
-            sb.append("<b>").append(job.getDisplayName()).append("</b><br/>");
-        }
         if (!trimIt) {
             sb.append(job.getDescription());
         } else {
