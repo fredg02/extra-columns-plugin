@@ -35,7 +35,7 @@ public class DescriptionColumn extends ListViewColumn {
 
     private boolean displayName;
     private boolean trim;
-    private int displayLength;
+    private int displayLength; //numbers of lines to display
 
     private final static String SEPARATOR = "<br/>";
     private final static String SEPARATORS_REGEX = "(?i)<br\\s*/>|<br>";
@@ -48,6 +48,10 @@ public class DescriptionColumn extends ListViewColumn {
         this.displayLength = displayLength;
     }
 
+    public DescriptionColumn() {
+        this(false, false, 1);
+    }
+    
     public boolean isDisplayName() {
         return displayName;
     }

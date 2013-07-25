@@ -40,6 +40,10 @@ public class DisableProjectColumn extends ListViewColumn {
         this.useIcon = useIcon;
     }
 
+    public DisableProjectColumn() {
+        this(false);
+    }
+
     public boolean useIcon(){
         return useIcon;
     }

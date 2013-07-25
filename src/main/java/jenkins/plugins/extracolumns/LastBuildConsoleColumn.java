@@ -34,6 +34,7 @@ public class LastBuildConsoleColumn extends ListViewColumn {
     
     @DataBoundConstructor
     public LastBuildConsoleColumn() {
+        super();
     }
 
     

@@ -32,14 +32,18 @@ import hudson.views.ListViewColumnDescriptor;
 
 public class TestResultColumn extends ListViewColumn {
 
-    private int testResultFormat;
+    private int testResultFormat = 0;
     
     @DataBoundConstructor
     public TestResultColumn(int testResultFormat) {
         super();
         this.testResultFormat = testResultFormat;
     }
-    
+
+    public TestResultColumn() {
+        this(0);
+    }
+
     public int getTestResultFormat(){
         return testResultFormat;
     }

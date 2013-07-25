@@ -37,6 +37,7 @@ public class ConfigureProjectColumn extends ListViewColumn {
     
     @DataBoundConstructor
     public ConfigureProjectColumn() {
+        super();
     }
 
     public boolean isVersion1430(){
