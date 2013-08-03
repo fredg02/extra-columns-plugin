@@ -40,10 +40,10 @@ public class BuildDescriptionColumn extends ListViewColumn {
     }
 
     public String getBuildDescription(@SuppressWarnings("rawtypes") Job job) {
-        if (job == null || job.getLastBuild() == null || job.getLastBuild().getDescription() == null) {
+        if (job == null || job.getLastCompletedBuild() == null || job.getLastCompletedBuild().getDescription() == null) {
             return "";
         }
-        return job.getLastBuild().getDescription();
+        return job.getLastCompletedBuild().getDescription();
     }
 
     @Extension
