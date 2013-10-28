@@ -24,6 +24,8 @@ THE SOFTWARE.
 
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt">
+    <j:set var="disabledTooltip" value="${%Can only be used in Jenkins version 1.519 and higher}"/>
+    <j:set var="enabledTooltip" value="${%Use pronoun}"/>
     <f:block>
         <tr>
             <td width="50">
@@ -31,6 +33,14 @@ THE SOFTWARE.
             </td>
             <td colspan="2">
                 <p>${%This column shows the type of the job, eg. Free-style, Maven, Multi-config.}</p>
+                <f:entry>
+                    <!-- not using f:checkbox here, because it does not support the 'disabled' attribute -->
+                    <input type="checkbox"
+                            checked="${instance.usePronoun() ? 'checked' : null}"
+                            disabled="${!instance.isVersion1519() ? 'disabled' : null}"
+                            title="${!instance.isVersion1519() ? disabledTooltip : enabledTooltip}"/>
+                    <label class="attach-previous">${%Use pronoun}</label>
+                </f:entry>
             </td>
         </tr>
     </f:block>

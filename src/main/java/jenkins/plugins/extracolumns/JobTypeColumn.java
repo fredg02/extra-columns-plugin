@@ -23,43 +23,75 @@
  */
 package jenkins.plugins.extracolumns;
 
+import jenkins.model.Jenkins;
+
 import org.kohsuke.stapler.DataBoundConstructor;
 
 import hudson.Extension;
-import hudson.matrix.MatrixProject;
 import hudson.model.ViewJob;
-import hudson.model.AbstractProject;
-import hudson.model.FreeStyleProject;
-import hudson.model.Job;
+import hudson.model.AbstractItem;
+import hudson.util.VersionNumber;
 import hudson.views.ListViewColumn;
 import hudson.views.ListViewColumnDescriptor;
 
 public class JobTypeColumn extends ListViewColumn {
 
+    private boolean usePronoun;
+    
     @DataBoundConstructor
-    public JobTypeColumn() {
+    public JobTypeColumn(boolean usePronoun) {
         super();
+        this.usePronoun = usePronoun;
     }
 
-    public String getJobType(@SuppressWarnings("rawtypes") Job job) {
-       if(job instanceof AbstractProject){
-            AbstractProject project = (AbstractProject) job;
-            //checking simple name avoids having dependencies on plugins
-            if("MavenModuleSet".equals(job.getClass().getSimpleName())){
-                return Messages.JobTypeColumn_MavenName();
-            }else if("MultiJobProject".equals(job.getClass().getSimpleName())){
-                return Messages.JobTypeColumn_MultiJobName();
-            }else if("IvyModuleSet".equals(job.getClass().getSimpleName())){
-                return Messages.JobTypeColumn_IvyName();
-            }else if(project instanceof MatrixProject){
-                return Messages.JobTypeColumn_MultiConfigName();
-            }else if(project instanceof FreeStyleProject){
-                return Messages.JobTypeColumn_FreestyleName();
-            }
-        }else if(job instanceof ViewJob){
+    public JobTypeColumn() {
+        this(false);
+    }
+
+    public boolean usePronoun(){
+        return usePronoun;
+    }
+
+    /**
+     * Returns the job type <br/>
+     * 
+     * <p><b>Note:</b> With Jenkins version 1.519 and higher, an option appears in the config section for this column
+     * that allows to use the 'pronoun' instead of the 'simple name' to query the job type.</p>
+     * 
+     * @param item
+     * @return job type
+     */
+    public String getJobType(AbstractItem item) {
+        if (usePronoun()) {
+            return item.getPronoun();
+        } else {
+            return getSimpleName(item);
+        }
+    }
+
+    private String getSimpleName(AbstractItem item){
+        String simpleName = item.getClass().getSimpleName();
+        if("Folder".equals(simpleName)){
+            return Messages.JobTypeColumn_FolderName();
+        } else if ("MavenModuleSet".equals(simpleName)) {
+            return Messages.JobTypeColumn_MavenName();
+        } else if ("MultiJobProject".equals(simpleName)) {
+            return Messages.JobTypeColumn_MultiJobName();
+        } else if ("IvyModuleSet".equals(simpleName)) {
+            return Messages.JobTypeColumn_IvyName();
+        } else if ("MatrixProject".equals(simpleName)) {
+            return Messages.JobTypeColumn_MultiConfigName();
+        } else if ("FreeStyleProject".equals(simpleName)) {
+            return Messages.JobTypeColumn_FreestyleName();
+        } else if (item instanceof ViewJob) {
             return Messages.JobTypeColumn_ExternalName();
         }
         return "";
+    }
+
+    public boolean isVersion1519(){
+        VersionNumber vn1519 = new VersionNumber("1.519");
+        return Jenkins.getVersion().equals(vn1519) || Jenkins.getVersion().isNewerThan(vn1519) ;
     }
 
     @Extension
