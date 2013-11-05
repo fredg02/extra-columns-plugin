@@ -36,20 +36,24 @@ public class DescriptionColumn extends ListViewColumn {
     private boolean displayName;
     private boolean trim;
     private int displayLength; //numbers of lines to display
+    private int columnWidth;
+    private boolean isForceWidth;
 
     private final static String SEPARATOR = "<br/>";
     private final static String SEPARATORS_REGEX = "(?i)<br\\s*/>|<br>";
 
     @DataBoundConstructor
-    public DescriptionColumn(boolean displayName, boolean trim, int displayLength) {
+    public DescriptionColumn(boolean displayName, boolean trim, int displayLength, int columnWidth, boolean isForceWidth) {
         super();
         this.displayName = displayName;
         this.trim = trim;
         this.displayLength = displayLength;
+        this.columnWidth = columnWidth;
+        this.isForceWidth = isForceWidth;
     }
 
     public DescriptionColumn() {
-        this(false, false, 1);
+        this(false, false, 1, 80, false);
     }
     
     public boolean isDisplayName() {
@@ -62,6 +66,14 @@ public class DescriptionColumn extends ListViewColumn {
 
     public int getDisplayLength() {
         return displayLength;
+    }
+
+    public int getColumnWidth() {
+        return columnWidth;
+    }
+    
+    public boolean isForceWidth() {
+        return isForceWidth;
     }
 
     public String getToolTip(@SuppressWarnings("rawtypes") AbstractItem job) {

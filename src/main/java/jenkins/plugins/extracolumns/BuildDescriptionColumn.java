@@ -33,10 +33,27 @@ import hudson.views.ListViewColumn;
 
 public class BuildDescriptionColumn extends ListViewColumn {
 
+    private int columnWidth;
+    private boolean isForceWidth;
 
+    
     @DataBoundConstructor
-    public BuildDescriptionColumn() {
+    public BuildDescriptionColumn(int columnWidth, boolean isForceWidth) {
         super();
+        this.columnWidth = columnWidth;
+        this.isForceWidth = isForceWidth;
+    }
+
+    public BuildDescriptionColumn() {
+        this(80, false);
+    }
+
+    public int getColumnWidth() {
+        return columnWidth;
+    }
+
+    public boolean isForceWidth() {
+        return isForceWidth;
     }
 
     public String getBuildDescription(@SuppressWarnings("rawtypes") Job job) {
@@ -57,6 +74,11 @@ public class BuildDescriptionColumn extends ListViewColumn {
         @Override
         public String getDisplayName() {
             return Messages.BuildDescriptionColumn_DisplayName();
+        }
+
+        @Override
+        public String getHelpFile() {
+            return "/plugin/extra-columns/help-buildDescription-column.html";
         }
 
     }

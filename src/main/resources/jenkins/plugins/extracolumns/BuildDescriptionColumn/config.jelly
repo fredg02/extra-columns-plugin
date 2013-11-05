@@ -27,6 +27,15 @@
     xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form"
     xmlns:i="jelly:fmt" xmlns:p="/lib/hudson/project">
     <f:block>
-        <p>${%This column shows the build description of the last build.}</p>
+        <table>
+            <tr>
+                <td colspan="3">${%This column shows the build description of the last build.}</td>
+            </tr>
+            <f:optionalBlock field="isForceWidth" title="${%Force column width}" inline="true">
+                <f:entry title="${%Column width}">
+                    <f:textbox field="columnWidth" default="80" />
+                </f:entry>
+            </f:optionalBlock>
+        </table>
     </f:block>
 </j:jelly>

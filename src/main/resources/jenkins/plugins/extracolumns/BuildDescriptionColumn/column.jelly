@@ -25,7 +25,8 @@
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core">
   <j:set var="buildDesc" value="${it.getBuildDescription(job)}"/>
-  <td>
+  <j:set var="widthAttribute" value="width: ${it.getColumnWidth()}px;word-wrap: break-word;white-space:normal;"/>
+  <td  style="${it.isForceWidth() ? widthAttribute : null}">
     <j:out value="${buildDesc!=null ? app.markupFormatter.translate(buildDesc) : ''}" />
   </td>
 </j:jelly>

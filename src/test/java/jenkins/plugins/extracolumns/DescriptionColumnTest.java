@@ -86,7 +86,7 @@ public class DescriptionColumnTest {
 
     @Test
     public void formatWithoutTrimming() throws IOException {
-        DescriptionColumn plugin = new DescriptionColumn(false, false, 2);
+        DescriptionColumn plugin = new DescriptionColumn(false, false, 2, 80, false);
         job.setDescription(SIMPLE_DESCRIPTION);
         String result = plugin.getDescription(job);
         assertEquals(SIMPLE_DESCRIPTION, result);
@@ -97,21 +97,21 @@ public class DescriptionColumnTest {
 
     @Test
     public void formatWithTrimming() throws IOException {
-        DescriptionColumn plugin = new DescriptionColumn(false, true, 2);
+        DescriptionColumn plugin = new DescriptionColumn(false, true, 2, 80, false);
         job.setDescription(SIMPLE_DESCRIPTION);
         String result = plugin.getDescription(job);
         assertEquals(SIMPLE_DESCRIPTION, result);
         job.setDescription(MULTILINE_DESCRIPTION);
         result = plugin.getDescription(job);
         assertEquals("Just a test<br/>Another Line", result);
-        plugin = new DescriptionColumn(false, true, 7);
+        plugin = new DescriptionColumn(false, true, 7, 80, false);
         result = plugin.getDescription(job);
         assertEquals("Just a test<br/>Another Line<br/>One <b>more</b> line<br/>Last line", result);
     }
 
     @Test
     public void displayName() throws IOException {
-        DescriptionColumn plugin = new DescriptionColumn(true, false, 2);
+        DescriptionColumn plugin = new DescriptionColumn(true, false, 2, 80, false);
         job.setDescription(SIMPLE_DESCRIPTION);
         String result = plugin.getDescription(job);
         assertEquals("Just a test", result);
