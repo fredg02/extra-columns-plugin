@@ -23,14 +23,11 @@
  */
 package jenkins.plugins.extracolumns;
 
-import jenkins.model.Jenkins;
-
 import org.kohsuke.stapler.DataBoundConstructor;
 
 import hudson.Extension;
 import hudson.model.ViewJob;
 import hudson.model.AbstractItem;
-import hudson.util.VersionNumber;
 import hudson.views.ListViewColumn;
 import hudson.views.ListViewColumnDescriptor;
 
@@ -48,7 +45,7 @@ public class JobTypeColumn extends ListViewColumn {
         this(false);
     }
 
-    public boolean usePronoun(){
+    public boolean isUsePronoun(){
         return usePronoun;
     }
 
@@ -62,7 +59,7 @@ public class JobTypeColumn extends ListViewColumn {
      * @return job type
      */
     public String getJobType(AbstractItem item) {
-        if (usePronoun()) {
+        if (isUsePronoun()) {
             return item.getPronoun();
         } else {
             return getSimpleName(item);
@@ -87,11 +84,6 @@ public class JobTypeColumn extends ListViewColumn {
             return Messages.JobTypeColumn_ExternalName();
         }
         return "";
-    }
-
-    public boolean isVersion1519(){
-        VersionNumber vn1519 = new VersionNumber("1.519");
-        return Jenkins.getVersion().equals(vn1519) || Jenkins.getVersion().isNewerThan(vn1519) ;
     }
 
     @Extension
