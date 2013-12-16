@@ -52,7 +52,7 @@ public class JobTypeColumn extends ListViewColumn {
     /**
      * Returns the job type <br/>
      * 
-     * <p><b>Note:</b> With Jenkins version 1.519 and higher, an option appears in the config section for this column
+     * <p><b>Note:</b> The config section for this column contains an option
      * that allows to use the 'pronoun' instead of the 'simple name' to query the job type.</p>
      * 
      * @param item
