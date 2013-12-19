@@ -35,15 +35,13 @@ import java.util.logging.Logger;
 import org.kohsuke.stapler.DataBoundConstructor;
 
 /**
- * View column that shows build processor or build processor label restriction
- * of a job.
+ * View column that shows build processor or build processor label restriction of a job.
  * 
  * @author krulls
  */
 public class SlaveOrLabelColumn extends ListViewColumn {
 
-    private static final Logger LOGGER = Logger
-            .getLogger(SlaveOrLabelColumn.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(SlaveOrLabelColumn.class.getName());
 
     @DataBoundConstructor
     public SlaveOrLabelColumn() {
@@ -58,16 +56,18 @@ public class SlaveOrLabelColumn extends ListViewColumn {
         
         AbstractProject<?, ?> project = AbstractProject.class.cast(job);
         Label projectLabel = project.getAssignedLabel();
-        if (projectLabel == null || projectLabel.isEmpty())
+        if (projectLabel == null || projectLabel.isEmpty()){
             return "N/A";
+        }
 
-        if (projectLabel.isSelfLabel())
+        if (projectLabel.isSelfLabel()){
             return projectLabel.getName();
+        }
 
-        return projectLabel.getName()
-                + ((projectLabel.getDescription() == null || projectLabel
-                        .getDescription().length() < 1) ? "" : " ("
-                        + projectLabel.getDescription() + ")");
+        String desc = projectLabel.getDescription();
+        desc = (desc == null || desc.length() < 1) ? "" : "(" + desc + ")";
+
+        return projectLabel.getName()+ desc;
     }
 
     @Extension

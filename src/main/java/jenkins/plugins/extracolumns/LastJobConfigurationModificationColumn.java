@@ -45,8 +45,7 @@ import org.kohsuke.stapler.DataBoundConstructor;
  */
 public class LastJobConfigurationModificationColumn extends ListViewColumn {
 
-    private static final Logger LOGGER = Logger
-            .getLogger(LastJobConfigurationModificationColumn.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(LastJobConfigurationModificationColumn.class.getName());
 
     @DataBoundConstructor
     public LastJobConfigurationModificationColumn() {
@@ -54,17 +53,15 @@ public class LastJobConfigurationModificationColumn extends ListViewColumn {
 
     public String getInfo(Job<?, ?> job) {
         XmlFile config = job.getConfigFile();
-        if (config == null || !config.exists())
+        if (config == null || !config.exists()){
             return "N/A";
+        }
 
         try {
             long lm = config.getFile().lastModified();
-            return FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss").format(
-                    new Date(lm));
+            return FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss").format(new Date(lm));
         } catch (Exception e) {
-            LOGGER.log(Level.WARNING,
-                    "Cannot read last modification date of configuration for job '"
-                            + job.getName() + "'.", e);
+            LOGGER.log(Level.WARNING, "Cannot read last modification date of configuration for job '" + job.getName() + "'.", e);
             return "N/A";
         }
 
@@ -74,8 +71,7 @@ public class LastJobConfigurationModificationColumn extends ListViewColumn {
     public static class DescriptorImpl extends ListViewColumnDescriptor {
         @Override
         public String getDisplayName() {
-            return Messages
-                    .LastJobConfigurationModificationColumn_DisplayName();
+            return Messages.LastJobConfigurationModificationColumn_DisplayName();
         }
 
         @Override
