@@ -35,59 +35,51 @@ import java.util.logging.Logger;
 import org.kohsuke.stapler.DataBoundConstructor;
 
 /**
- * View column that shows build processor or build processor label restriction of a job.
+ * View column that shows build processor or build processor label restriction
+ * of a job.
  * 
  * @author krulls
  */
-public class SlaveOrLabelColumn extends ListViewColumn
-{
+public class SlaveOrLabelColumn extends ListViewColumn {
 
-	private static final Logger	LOGGER	= Logger.getLogger(SlaveOrLabelColumn.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(SlaveOrLabelColumn.class.getName());
 
     @DataBoundConstructor
-    public SlaveOrLabelColumn()
-    {}
+    public SlaveOrLabelColumn() {
+    }
 
-	public String getInfo(Job<?, ?> job)
-	{
-		AbstractProject<?, ?> project;
-		
-		try
-		{
-			project = AbstractProject.class.cast(job);
-		}
-		catch (ClassCastException cce)
-		{
-			LOGGER.finest("Not an abstract project. " + cce.getLocalizedMessage());
-			return "";
-		}
-		
-		Label projectLabel = project.getAssignedLabel();
-		if( projectLabel == null || projectLabel.isEmpty() )
-			return "N/A";
-		
-		if( projectLabel.isSelfLabel() )
-			return projectLabel.getName();
-		
-		return projectLabel.getName() +
-			( (projectLabel.getDescription()==null || projectLabel.getDescription().length() < 1) ?
-					"" :
-					" (" + projectLabel.getDescription() + ")" );
-	}
+    public String getInfo(Job<?, ?> job) {
+
+        if(!(job instanceof AbstractProject)){
+            LOGGER.finest("Not an instance of " + AbstractProject.class.getCanonicalName() + ". Cannot get info.");
+            return "";
+        }
+        
+        AbstractProject<?, ?> project = AbstractProject.class.cast(job);
+        Label projectLabel = project.getAssignedLabel();
+        if (projectLabel == null || projectLabel.isEmpty())
+            return "N/A";
+
+        if (projectLabel.isSelfLabel())
+            return projectLabel.getName();
+
+        return projectLabel.getName()
+                + ((projectLabel.getDescription() == null || projectLabel
+                        .getDescription().length() < 1) ? "" : " ("
+                        + projectLabel.getDescription() + ")");
+    }
 
     @Extension
-    public static class DescriptorImpl extends ListViewColumnDescriptor
-	{
-		@Override
-		public String getDisplayName()
-		{
-			return Messages.SlaveOrLabelColumn_DisplayName();
-		}
+    public static class DescriptorImpl extends ListViewColumnDescriptor {
+        @Override
+        public String getDisplayName() {
+            return Messages.SlaveOrLabelColumn_DisplayName();
+        }
 
-		@Override
-        public boolean shownByDefault()
-		{
+        @Override
+        public boolean shownByDefault() {
             return false;
-		}
-	}
+        }
+    }
 }
