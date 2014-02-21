@@ -34,14 +34,14 @@ import hudson.views.ListViewColumn;
 public class BuildDescriptionColumn extends ListViewColumn {
 
     private int columnWidth;
-    private boolean isForceWidth;
+    private boolean forceWidth;
 
     
     @DataBoundConstructor
-    public BuildDescriptionColumn(int columnWidth, boolean isForceWidth) {
+    public BuildDescriptionColumn(int columnWidth, boolean forceWidth) {
         super();
         this.columnWidth = columnWidth;
-        this.isForceWidth = isForceWidth;
+        this.forceWidth = forceWidth;
     }
 
     public BuildDescriptionColumn() {
@@ -53,7 +53,7 @@ public class BuildDescriptionColumn extends ListViewColumn {
     }
 
     public boolean isForceWidth() {
-        return isForceWidth;
+        return forceWidth;
     }
 
     public String getBuildDescription(@SuppressWarnings("rawtypes") Job job) {

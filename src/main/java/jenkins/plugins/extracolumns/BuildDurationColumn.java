@@ -29,7 +29,6 @@ import org.kohsuke.stapler.DataBoundConstructor;
 
 import hudson.Extension;
 import hudson.Util;
-import hudson.model.Items;
 import hudson.model.Job;
 import hudson.views.ListViewColumn;
 import hudson.views.ListViewColumnDescriptor;

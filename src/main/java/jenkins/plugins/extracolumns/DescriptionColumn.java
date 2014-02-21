@@ -37,19 +37,19 @@ public class DescriptionColumn extends ListViewColumn {
     private boolean trim;
     private int displayLength; //numbers of lines to display
     private int columnWidth;
-    private boolean isForceWidth;
+    private boolean forceWidth;
 
     private final static String SEPARATOR = "<br/>";
     private final static String SEPARATORS_REGEX = "(?i)<br\\s*/>|<br>";
 
     @DataBoundConstructor
-    public DescriptionColumn(boolean displayName, boolean trim, int displayLength, int columnWidth, boolean isForceWidth) {
+    public DescriptionColumn(boolean displayName, boolean trim, int displayLength, int columnWidth, boolean forceWidth) {
         super();
         this.displayName = displayName;
         this.trim = trim;
         this.displayLength = displayLength;
         this.columnWidth = columnWidth;
-        this.isForceWidth = isForceWidth;
+        this.forceWidth = forceWidth;
     }
 
     public DescriptionColumn() {
@@ -73,18 +73,18 @@ public class DescriptionColumn extends ListViewColumn {
     }
     
     public boolean isForceWidth() {
-        return isForceWidth;
+        return forceWidth;
     }
 
-    public String getToolTip(@SuppressWarnings("rawtypes") AbstractItem job) {
+    public String getToolTip(AbstractItem job) {
         return formatDescription(job, false);
     }
     
-    public String getDescription(@SuppressWarnings("rawtypes") AbstractItem job){
+    public String getDescription(AbstractItem job){
         return formatDescription(job, isTrim());
     }
     
-    private String formatDescription(@SuppressWarnings("rawtypes") AbstractItem job, boolean trimIt) {
+    private String formatDescription(AbstractItem job, boolean trimIt) {
         if (job == null) {
             return null;
         }

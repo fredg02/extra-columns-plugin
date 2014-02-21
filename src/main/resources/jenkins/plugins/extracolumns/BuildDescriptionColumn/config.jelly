@@ -31,7 +31,7 @@
             <tr>
                 <td colspan="3">${%This column shows the build description of the last build.}</td>
             </tr>
-            <f:optionalBlock field="isForceWidth" title="${%Force column width}" inline="true">
+            <f:optionalBlock field="forceWidth" title="${%Force column width}" inline="true">
                 <f:entry title="${%Column width}">
                     <f:textbox field="columnWidth" default="80" />
                 </f:entry>
