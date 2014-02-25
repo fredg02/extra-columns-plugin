@@ -37,13 +37,13 @@ import org.kohsuke.stapler.DataBoundConstructor;
 
 public class BuildParametersColumn extends ListViewColumn {
 
-    private boolean isSinglePara;
+    private boolean singlePara;
     private String parameterName;
 
     @DataBoundConstructor
-    public BuildParametersColumn(boolean isSinglePara, String parameterName) {
+    public BuildParametersColumn(boolean singlePara, String parameterName) {
         super();
-        this.isSinglePara = isSinglePara;
+        this.singlePara = singlePara;
         this.parameterName = parameterName;
     }
 
@@ -52,7 +52,11 @@ public class BuildParametersColumn extends ListViewColumn {
     }
 
     public boolean isSinglePara(){
-        return isSinglePara;
+        return singlePara;
+    }
+
+    public String getParameterName(){
+        return parameterName;
     }
 
     public String getBuildParameters(Job job) {

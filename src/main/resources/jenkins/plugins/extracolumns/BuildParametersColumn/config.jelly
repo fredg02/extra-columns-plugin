@@ -28,7 +28,7 @@
     xmlns:i="jelly:fmt" xmlns:p="/lib/hudson/project">
     <f:block>
         <p>${%This column shows a single build parameter or all build parameters of the current/last build.}</p>
-        <f:optionalBlock field="isSinglePara" title="${%Show single parameter}" inline="true">
+        <f:optionalBlock field="singlePara" title="${%Show single parameter}" inline="true">
             <f:entry title="${%Parameter name}">
                 <f:textbox field="parameterName" default="" />
             </f:entry>
