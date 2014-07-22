@@ -27,6 +27,9 @@ import org.kohsuke.stapler.DataBoundConstructor;
 
 import hudson.Extension;
 import hudson.model.Items;
+import hudson.model.Job;
+import hudson.model.Run;
+import hudson.tasks.test.AbstractTestResultAction;
 import hudson.views.ListViewColumn;
 import hudson.views.ListViewColumnDescriptor;
 
@@ -46,6 +49,11 @@ public class TestResultColumn extends ListViewColumn {
 
     public int getTestResultFormat(){
         return testResultFormat;
+    }
+
+    public AbstractTestResultAction<?> getTestResultAction(Job<?,?> job) {
+        Run<?,?> b = job.getLastCompletedBuild();
+        return b != null ? b.getAction(AbstractTestResultAction.class) : null;
     }
 
     @Extension
