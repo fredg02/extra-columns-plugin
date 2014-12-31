@@ -55,7 +55,7 @@ THE SOFTWARE.
     <td data="${sortData}">
 	    <j:choose>
 	        <j:when test="${tr!=null}">
-                <a href="${job.url}lastCompletedBuild/${tr.urlName}/">
+                <a href="${rootURL}/${job.url}lastCompletedBuild/${tr.urlName}/">
                 <j:choose>
                     <j:when test="${it.totalCount==0}">
                     (${%no tests})
