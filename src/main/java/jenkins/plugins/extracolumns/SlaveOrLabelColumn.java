@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright (c) 2013, Stephan Krull
+ * Copyright (c) 2013, Stephan Krull, Frederic Gurr
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -47,27 +47,22 @@ public class SlaveOrLabelColumn extends ListViewColumn {
     public SlaveOrLabelColumn() {
     }
 
-    public String getInfo(Job<?, ?> job) {
-
+    public Label getLabel(Job<?, ?> job) {
         if(!(job instanceof AbstractProject)){
             LOGGER.finest("Not an instance of " + AbstractProject.class.getCanonicalName() + ". Cannot get info.");
-            return "";
+            return null;
         }
         
         AbstractProject<?, ?> project = AbstractProject.class.cast(job);
-        Label projectLabel = project.getAssignedLabel();
-        if (projectLabel == null || projectLabel.isEmpty()){
-            return "N/A";
+        return project.getAssignedLabel();
+    }
+    
+    public String getDescription(Label label) {
+        if (label == null) {
+            return "";
         }
-
-        if (projectLabel.isSelfLabel()){
-            return projectLabel.getName();
-        }
-
-        String desc = projectLabel.getDescription();
-        desc = (desc == null || desc.length() < 1) ? "" : "(" + desc + ")";
-
-        return projectLabel.getName()+ desc;
+        String desc = label.getDescription();
+        return (desc == null || desc.length() < 1) ? "" : "(" + desc + ")";
     }
 
     @Extension

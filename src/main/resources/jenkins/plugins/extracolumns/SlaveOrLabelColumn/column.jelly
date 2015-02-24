@@ -1,7 +1,7 @@
 <!--
   The MIT License
 
-  Copyright (c) 2013, Stephan Krull
+  Copyright (c) 2013, Stephan Krull, Frederic Gurr
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,5 +24,14 @@
 
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core">
-  <td data="${it.getInfo(job)}">${it.getInfo(job)}</td>
+  <j:set var="label" value="${it.getLabel(job)}"/>
+  <j:set var="desc" value="${it.getDescription(label)}"/>
+  <td data="${label}">
+    <j:choose>
+      <j:when test="${label == null}">N/A</j:when>
+      <j:when test="${label.equals('')}">N/A</j:when>
+      <j:when test="${label.isSelfLabel()}"><a href="${rootURL}/computer/${label.getName()}">${label.getName()}</a></j:when>
+      <j:otherwise>${label.getName()} ${desc}</j:otherwise>
+    </j:choose>
+  </td>
 </j:jelly>
