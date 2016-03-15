@@ -39,4 +39,12 @@
         </pluginRepository>
     </pluginRepositories>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.jenkins-ci.plugins</groupId>
+            <artifactId>junit</artifactId>
+            <version>1.11</version>
+        </dependency>
+    </dependencies>
+
 </project>
