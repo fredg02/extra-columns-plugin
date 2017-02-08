@@ -80,6 +80,8 @@ public class JobTypeColumn extends ListViewColumn {
             return Messages.JobTypeColumn_MultiConfigName();
         } else if ("FreeStyleProject".equals(simpleName)) {
             return Messages.JobTypeColumn_FreestyleName();
+        } else if ("WorkflowJob".equals(simpleName)) {
+            return Messages.JobTypeColumn_WorkflowJobName();
         } else if (item instanceof ViewJob) {
             return Messages.JobTypeColumn_ExternalName();
         }
