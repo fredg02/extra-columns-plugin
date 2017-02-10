@@ -82,6 +82,8 @@ public class JobTypeColumn extends ListViewColumn {
             return Messages.JobTypeColumn_FreestyleName();
         } else if ("WorkflowJob".equals(simpleName)) {
             return Messages.JobTypeColumn_WorkflowJobName();
+        } else if ("WorkflowMultiBranchProject".equals(simpleName)) {
+            return Messages.JobTypeColumn_WorkflowMultiBranchProjectName();
         } else if (item instanceof ViewJob) {
             return Messages.JobTypeColumn_ExternalName();
         }
