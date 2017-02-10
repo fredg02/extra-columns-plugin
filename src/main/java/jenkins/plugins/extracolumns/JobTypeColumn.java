@@ -50,12 +50,12 @@ public class JobTypeColumn extends ListViewColumn {
     }
 
     /**
-     * Returns the job type <br/>
+     * Returns the job type <br>
      * 
      * <p><b>Note:</b> The config section for this column contains an option
      * that allows to use the 'pronoun' instead of the 'simple name' to query the job type.</p>
      * 
-     * @param item
+     * @param item job, etc.
      * @return job type
      */
     public String getJobType(AbstractItem item) {
