@@ -25,6 +25,7 @@ package jenkins.plugins.extracolumns;
 
 import jenkins.model.Jenkins;
 
+import org.jenkinsci.plugins.workflow.job.WorkflowRun;
 import org.kohsuke.stapler.DataBoundConstructor;
 
 import hudson.Extension;
@@ -44,14 +45,16 @@ public class LastBuildNodeColumn extends ListViewColumn {
     
     public String getLastBuildNode(Job<?, ?> job) {
         Run<?, ?> lastBuild = job.getLastBuild();
-        if (lastBuild == null) {
+        if (lastBuild == null || lastBuild instanceof WorkflowRun) {
             return null;
+        } else if (lastBuild instanceof AbstractBuild<?, ?>) {
+            Node builtOn = ((AbstractBuild<?, ?>) lastBuild).getBuiltOn();
+            if (builtOn instanceof Jenkins) {
+                return "master";
+            }
+            return builtOn.getDisplayName();
         }
-        Node builtOn = ((AbstractBuild<?, ?>) lastBuild).getBuiltOn();
-        if (builtOn instanceof Jenkins) {
-            return "master";
-        }
-        return builtOn.getDisplayName();
+        return null;
     }
 
     @Extension
