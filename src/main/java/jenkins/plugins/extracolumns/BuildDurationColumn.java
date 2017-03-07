@@ -51,11 +51,11 @@ public class BuildDurationColumn extends ListViewColumn {
         return buildDurationType;
     }
 
-    public long getSortDataBuildRunningSince(Job job){
+    public long getSortDataBuildRunningSince(Job<?, ?> job){
         return new GregorianCalendar().getTimeInMillis()-job.getLastBuild().getTimeInMillis();
     }
 
-    public String getAverageBuildDurationString(Job job){
+    public String getAverageBuildDurationString(Job<?, ?> job){
         return Util.getTimeSpanString(job.getLastBuild().getEstimatedDuration());
     }
 

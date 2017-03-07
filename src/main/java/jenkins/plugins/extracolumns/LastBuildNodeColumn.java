@@ -49,7 +49,9 @@ public class LastBuildNodeColumn extends ListViewColumn {
             if (builtOn instanceof Jenkins) {
                 return "master";
             }
-            return builtOn.getDisplayName();
+            if (builtOn != null) {
+                return builtOn.getDisplayName();
+            }
         } 
         return null;
     }

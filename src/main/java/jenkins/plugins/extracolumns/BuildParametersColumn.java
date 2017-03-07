@@ -59,13 +59,13 @@ public class BuildParametersColumn extends ListViewColumn {
         return parameterName;
     }
 
-    public String getBuildParameters(Job job) {
+    public String getBuildParameters(Job<?, ?> job) {
         if (job == null || job.getLastBuild() == null) {
             return "";
         }
-        Run r = job.getLastBuild();
+        Run<?, ?> r = job.getLastBuild();
         StringBuilder s = new StringBuilder();
-        for(Action action : r.getActions()) {
+        for(Action action : r.getAllActions()) {
             if(action instanceof ParametersAction) {
                 ParametersAction pa = (ParametersAction)action;
                 for (ParameterValue p : pa.getParameters()) {
