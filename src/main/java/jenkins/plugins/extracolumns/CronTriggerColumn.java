@@ -25,6 +25,7 @@
 package jenkins.plugins.extracolumns;
 
 import java.util.Map;
+import java.text.DateFormat;
 
 import org.kohsuke.stapler.DataBoundConstructor;
 
@@ -38,6 +39,9 @@ import hudson.views.ListViewColumn;
 import hudson.triggers.Trigger;
 import hudson.triggers.TimerTrigger;
 import hudson.triggers.TriggerDescriptor;
+
+import hudson.scheduler.CronTabList;
+import hudson.scheduler.Hash;
 
 public class CronTriggerColumn extends ListViewColumn {
 
@@ -54,6 +58,7 @@ public class CronTriggerColumn extends ListViewColumn {
         }
 
 	AbstractProject project = (AbstractProject)job;
+	@SuppressWarnings("unchecked")
 	Map<TriggerDescriptor, Trigger> triggers = project.getTriggers();
 
 	for (Trigger trigger : triggers.values()) {
@@ -63,7 +68,29 @@ public class CronTriggerColumn extends ListViewColumn {
 		// 10 1 * * *
 	    }
 	}
+
 	return cronTrigger;
+    }
+
+    public String getCronTriggerToolTip(@SuppressWarnings("rawtypes") Job job) {
+	String cronTrigger = getCronTrigger(job);
+	if (job == null || cronTrigger.isEmpty()) {
+	    return "";
+	}
+
+	try {
+	    // The logic here follows the one used in TimerTrigger to show a similar
+	    // message in the job configuration page
+	    CronTabList ctl = CronTabList.create(cronTrigger, Hash.from(job.getFullName()));
+	    DateFormat fmt = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL);
+	    String previous = fmt.format(ctl.previous().getTime());
+	    String next =  fmt.format(ctl.next().getTime());
+	    return Messages.CronTriggerColumn_ToolTipFormat(previous, next);
+	} catch (antlr.ANTLRException ex) {
+	    // ignore
+	}
+
+	return "";
     }
 
     @Extension
