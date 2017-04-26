@@ -25,6 +25,7 @@
 package jenkins.plugins.extracolumns;
 
 import java.util.Map;
+import java.util.Calendar;
 import java.text.DateFormat;
 
 import org.kohsuke.stapler.DataBoundConstructor;
@@ -86,9 +87,12 @@ public class CronTriggerColumn extends ListViewColumn {
 		return "";
 	    }
 	    DateFormat fmt = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL);
-	    String previous = fmt.format(ctl.previous().getTime());
-	    String next =  fmt.format(ctl.next().getTime());
-	    return Messages.CronTriggerColumn_ToolTipFormat(previous, next);
+	    Calendar previous = ctl.previous();
+	    Calendar next = ctl.next();
+	    if (null == previous || null == next) {
+		return "";
+	    }
+	    return Messages.CronTriggerColumn_ToolTipFormat(fmt.format(previous.getTime()), fmt.format(next.getTime()));
 	} catch (antlr.ANTLRException ex) {
 	    // ignore
 	}
