@@ -74,7 +74,7 @@ public class CronTriggerColumn extends ListViewColumn {
 
     public String getCronTriggerToolTip(@SuppressWarnings("rawtypes") Job job) {
 	String cronTrigger = getCronTrigger(job);
-	if (job == null || cronTrigger.isEmpty()) {
+	if (null == job || cronTrigger.isEmpty()) {
 	    return "";
 	}
 
@@ -82,6 +82,9 @@ public class CronTriggerColumn extends ListViewColumn {
 	    // The logic here follows the one used in TimerTrigger to show a similar
 	    // message in the job configuration page
 	    CronTabList ctl = CronTabList.create(cronTrigger, Hash.from(job.getFullName()));
+	    if (null == ctl) {
+		return "";
+	    }
 	    DateFormat fmt = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL);
 	    String previous = fmt.format(ctl.previous().getTime());
 	    String next =  fmt.format(ctl.next().getTime());
