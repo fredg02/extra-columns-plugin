@@ -18,6 +18,7 @@ It currently provides the following columns:
 * Last build node
 * Last/current build console
 * Last project configuration modification
+* Periodic build trigger
 * Project description
 * SCM type
 * Slave or label restriction

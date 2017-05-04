@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright (c) 2012, Frederic Gurr
+ * Copyright (c) 2017, Sanketh Indarapu
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -46,6 +46,8 @@ import hudson.scheduler.Hash;
 
 public class CronTriggerColumn extends ListViewColumn {
 
+    public final static String DEFAULT_TRIGGER = "N/A";
+
     @DataBoundConstructor
     public CronTriggerColumn() {
         super();
@@ -53,7 +55,7 @@ public class CronTriggerColumn extends ListViewColumn {
 
 
     public String getCronTrigger(@SuppressWarnings("rawtypes") Job job) {
-	String cronTrigger = "";
+	String cronTrigger = DEFAULT_TRIGGER;
         if (job == null) {
 	    return cronTrigger;
         }
@@ -74,30 +76,36 @@ public class CronTriggerColumn extends ListViewColumn {
     }
 
     public String getCronTriggerToolTip(@SuppressWarnings("rawtypes") Job job) {
+	String toolTip = DEFAULT_TRIGGER;
+	
+	if (job == null) {
+	    return toolTip;
+	}
+	
 	String cronTrigger = getCronTrigger(job);
-	if (null == job || cronTrigger.isEmpty()) {
-	    return "";
+	if (cronTrigger == null || cronTrigger.isEmpty() || cronTrigger == DEFAULT_TRIGGER) {
+	    return toolTip;
 	}
 
 	try {
 	    // The logic here follows the one used in TimerTrigger to show a similar
 	    // message in the job configuration page
 	    CronTabList ctl = CronTabList.create(cronTrigger, Hash.from(job.getFullName()));
-	    if (null == ctl) {
-		return "";
+	    if (ctl == null) {
+		return toolTip;
 	    }
 	    DateFormat fmt = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL);
 	    Calendar previous = ctl.previous();
 	    Calendar next = ctl.next();
-	    if (null == previous || null == next) {
-		return "";
+	    if (previous == null || next == null) {
+		return toolTip;
 	    }
 	    return Messages.CronTriggerColumn_ToolTipFormat(fmt.format(previous.getTime()), fmt.format(next.getTime()));
 	} catch (antlr.ANTLRException ex) {
 	    // ignore
 	}
 
-	return "";
+	return toolTip;
     }
 
     @Extension

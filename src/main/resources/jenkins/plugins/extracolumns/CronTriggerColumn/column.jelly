@@ -1,7 +1,7 @@
 <!--
   The MIT License
 
-  Copyright (c) 2012, Frederic Gurr
+  Copyright (c) 2017, Sanketh Indarapu
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -24,9 +24,9 @@
 
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core">
-  <j:set var="cronTrigger" value="${it.getCronTrigger(job)}"/>
-  <j:set var="cronTriggerToolTip" value="${it.getCronTriggerToolTip(job)}"/>
-<td tooltip="${cronTriggerToolTip}">
-  ${cronTrigger}
+
+<td tooltip="${it.getCronTriggerToolTip(job)}">
+  ${it.getCronTrigger(job)}
 </td>
+
 </j:jelly>
