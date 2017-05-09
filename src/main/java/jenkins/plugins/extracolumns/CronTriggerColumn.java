@@ -24,88 +24,86 @@
 
 package jenkins.plugins.extracolumns;
 
-import java.util.Map;
-import java.util.Calendar;
 import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.kohsuke.stapler.DataBoundConstructor;
 
 import hudson.Extension;
-import hudson.model.Job;
 import hudson.model.AbstractProject;
-
-import hudson.views.ListViewColumnDescriptor;
-import hudson.views.ListViewColumn;
-
-import hudson.triggers.Trigger;
-import hudson.triggers.TimerTrigger;
-import hudson.triggers.TriggerDescriptor;
-
+import hudson.model.Job;
 import hudson.scheduler.CronTabList;
 import hudson.scheduler.Hash;
+import hudson.triggers.TimerTrigger;
+import hudson.triggers.Trigger;
+import hudson.triggers.TriggerDescriptor;
+import hudson.views.ListViewColumn;
+import hudson.views.ListViewColumnDescriptor;
 
 public class CronTriggerColumn extends ListViewColumn {
 
-    public final static String DEFAULT_TRIGGER = "N/A";
+    private static final String DEFAULT_TRIGGER = "N/A";
+    private static final Logger LOGGER = Logger.getLogger(CronTriggerColumn.class.getName());
 
     @DataBoundConstructor
     public CronTriggerColumn() {
         super();
     }
 
-
     public String getCronTrigger(@SuppressWarnings("rawtypes") Job job) {
-	String cronTrigger = DEFAULT_TRIGGER;
+        String cronTrigger = DEFAULT_TRIGGER;
         if (job == null) {
-	    return cronTrigger;
+            return cronTrigger;
         }
 
-	AbstractProject project = (AbstractProject)job;
-	@SuppressWarnings("unchecked")
-	Map<TriggerDescriptor, Trigger> triggers = project.getTriggers();
+        AbstractProject project = (AbstractProject) job;
+        @SuppressWarnings("unchecked")
+        Map<TriggerDescriptor, Trigger> triggers = project.getTriggers();
 
-	for (Trigger trigger : triggers.values()) {
-	    if (trigger instanceof TimerTrigger) {
-		cronTrigger = trigger.getSpec();
-		// This will look like a cron spec of the form
-		// 10 1 * * *
-	    }
-	}
+        for (Trigger trigger : triggers.values()) {
+            if (trigger instanceof TimerTrigger) {
+                cronTrigger = trigger.getSpec();
+                // This will look like a cron spec of the form
+                // 10 1 * * *
+            }
+        }
 
-	return cronTrigger;
+        return cronTrigger;
     }
 
     public String getCronTriggerToolTip(@SuppressWarnings("rawtypes") Job job) {
-	String toolTip = DEFAULT_TRIGGER;
-	
-	if (job == null) {
-	    return toolTip;
-	}
-	
-	String cronTrigger = getCronTrigger(job);
-	if (cronTrigger == null || cronTrigger.isEmpty() || cronTrigger == DEFAULT_TRIGGER) {
-	    return toolTip;
-	}
+        String toolTip = DEFAULT_TRIGGER;
 
-	try {
-	    // The logic here follows the one used in TimerTrigger to show a similar
-	    // message in the job configuration page
-	    CronTabList ctl = CronTabList.create(cronTrigger, Hash.from(job.getFullName()));
-	    if (ctl == null) {
-		return toolTip;
-	    }
-	    DateFormat fmt = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL);
-	    Calendar previous = ctl.previous();
-	    Calendar next = ctl.next();
-	    if (previous == null || next == null) {
-		return toolTip;
-	    }
-	    return Messages.CronTriggerColumn_ToolTipFormat(fmt.format(previous.getTime()), fmt.format(next.getTime()));
-	} catch (antlr.ANTLRException ex) {
-	    // ignore
-	}
+        if (job == null) {
+            return toolTip;
+        }
 
-	return toolTip;
+        String cronTrigger = getCronTrigger(job);
+        if (cronTrigger == null || cronTrigger.isEmpty() || DEFAULT_TRIGGER.equals(cronTrigger)) {
+            return toolTip;
+        }
+
+        try {
+            // The logic here follows the one used in TimerTrigger to show a similar message in the job configuration page
+            CronTabList ctl = CronTabList.create(cronTrigger, Hash.from(job.getFullName()));
+            if (ctl == null) {
+                return toolTip;
+            }
+            DateFormat fmt = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL);
+            Calendar previous = ctl.previous();
+            Calendar next = ctl.next();
+            if (previous == null || next == null) {
+                return toolTip;
+            }
+            return Messages.CronTriggerColumn_ToolTipFormat(fmt.format(previous.getTime()), fmt.format(next.getTime()));
+        } catch (antlr.ANTLRException ex) {
+            LOGGER.log(Level.WARNING, "ANTLRException: %s", ex);
+        }
+
+        return toolTip;
     }
 
     @Extension
