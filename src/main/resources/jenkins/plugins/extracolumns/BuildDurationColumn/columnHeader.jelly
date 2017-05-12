@@ -31,5 +31,8 @@ THE SOFTWARE.
         <j:when test="${it.getBuildDurationType()==1}">
             <th>${%Average Duration}</th>
         </j:when>
+        <j:when test="${it.getBuildDurationType()==2}">
+            <th title="${%Average duration in minutes (compact)}">⏳'</th>
+        </j:when>
     </j:choose>
 </j:jelly>

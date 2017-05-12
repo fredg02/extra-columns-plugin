@@ -59,6 +59,10 @@ public class BuildDurationColumn extends ListViewColumn {
         return Util.getTimeSpanString(job.getLastBuild().getEstimatedDuration());
     }
 
+    public String getAverageBuildDurationMinsString(Job<?, ?> job){
+        return String.valueOf(job.getLastBuild().getEstimatedDuration()/1000/60);
+    }
+
     @Extension
     public static class DescriptorImpl extends ListViewColumnDescriptor {
 

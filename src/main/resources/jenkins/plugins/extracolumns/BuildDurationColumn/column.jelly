@@ -48,6 +48,11 @@ THE SOFTWARE.
                     <j:set var="sortData" value="0"/>
                     <j:set var="buildDurationString" value="${it.getAverageBuildDurationString(job)}"/>
                 </j:when>
+                <!-- Average build duration -->
+                <j:when test="${it.getBuildDurationType()==2}">
+                    <j:set var="sortData" value="${it.getAverageBuildDurationMinsString(job)}"/>
+                    <j:set var="buildDurationString" value="${it.getAverageBuildDurationMinsString(job)}"/>
+                </j:when>
             </j:choose>
        </j:when>
     </j:choose>
