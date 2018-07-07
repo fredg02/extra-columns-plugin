@@ -32,7 +32,7 @@ THE SOFTWARE.
             <th>${%Average Duration}</th>
         </j:when>
         <j:when test="${it.getBuildDurationType()==2}">
-            <th title="${%Average duration in minutes (compact)}">⏳'</th>
+            <th title="${%Average duration in minutes}">Min.</th>
         </j:when>
     </j:choose>
 </j:jelly>

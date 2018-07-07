@@ -31,24 +31,6 @@
       </license>
     </licenses>
 
-    <repositories>
-      <repository>
-        <id>repo.jenkins-ci.org</id>
-        <url>http://repo.jenkins-ci.org/public/</url>
-      </repository>
-      <repository>
-          <id>jitpack.io</id>
-          <url>https://jitpack.io</url>
-      </repository>
-    </repositories>
-
-    <pluginRepositories>
-      <pluginRepository>
-        <id>repo.jenkins-ci.org</id>
-        <url>http://repo.jenkins-ci.org/public/</url>
-      </pluginRepository>
-    </pluginRepositories>
-
     <scm>
         <connection>scm:git:git://github.com/jenkinsci/extra-columns-plugin.git</connection>
         <developerConnection>scm:git:git@github.com:jenkinsci/extra-columns-plugin.git</developerConnection>
