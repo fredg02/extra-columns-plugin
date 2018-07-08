@@ -42,6 +42,7 @@ import hudson.triggers.Trigger;
 import hudson.triggers.TriggerDescriptor;
 import hudson.views.ListViewColumn;
 import hudson.views.ListViewColumnDescriptor;
+import jenkins.model.ParameterizedJobMixIn;
 
 public class CronTriggerColumn extends ListViewColumn {
 
@@ -59,11 +60,18 @@ public class CronTriggerColumn extends ListViewColumn {
             return cronTrigger;
         }
 
-        AbstractProject project = (AbstractProject) job;
-        @SuppressWarnings("unchecked")
-        Map<TriggerDescriptor, Trigger> triggers = project.getTriggers();
+        Map<TriggerDescriptor, Trigger<?>> triggers = null;
+        if (job instanceof AbstractProject) {
+            triggers  = ((AbstractProject) job).getTriggers();
+        } if (job instanceof ParameterizedJobMixIn.ParameterizedJob) {
+            triggers = ((ParameterizedJobMixIn.ParameterizedJob)job).getTriggers();
+        }
 
-        for (Trigger trigger : triggers.values()) {
+        if (triggers == null) {
+            return cronTrigger;
+        }
+
+        for (Trigger<?> trigger : triggers.values()) {
             if (trigger instanceof TimerTrigger) {
                 cronTrigger = trigger.getSpec();
                 // This will look like a cron spec of the form
