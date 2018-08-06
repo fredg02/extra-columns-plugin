@@ -41,6 +41,8 @@ public class SCMTypeColumn extends ListViewColumn {
     }
 
     public String getScmType(@SuppressWarnings("rawtypes") Job job) {
+    	if(!(job instanceof AbstractProject<?, ?>))
+    		return "";
         AbstractProject<?, ?> project = (AbstractProject<?, ?>) job;
         return project.getScm().getDescriptor().getDisplayName();
     }
