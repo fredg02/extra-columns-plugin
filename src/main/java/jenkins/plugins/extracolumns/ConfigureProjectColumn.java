@@ -34,17 +34,17 @@ import hudson.views.ListViewColumnDescriptor;
 
 public class ConfigureProjectColumn extends ListViewColumn {
 
-    
     @DataBoundConstructor
     public ConfigureProjectColumn() {
         super();
     }
 
     public boolean isVersion1430(){
-        return Hudson.getVersion().equals(new VersionNumber("1.430")) || Hudson.getVersion().isNewerThan(new VersionNumber("1.430")) ;
+        VersionNumber currentVersion = Hudson.getVersion();
+        VersionNumber version1430 = new VersionNumber("1.430");
+        return version1430.equals(currentVersion) || version1430.isNewerThan(currentVersion);
     }
 
-    
     @Extension
     public static class DescriptorImpl extends ListViewColumnDescriptor {
 

@@ -101,6 +101,7 @@ public class CronTriggerColumn extends ListViewColumn {
                 return toolTip;
             }
             DateFormat fmt = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL);
+            // TODO: problems with Maven access-modifier enforcement check
             Calendar previous = ctl.previous();
             Calendar next = ctl.next();
             if (previous == null || next == null) {
