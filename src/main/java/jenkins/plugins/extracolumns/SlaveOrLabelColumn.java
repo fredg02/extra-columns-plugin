@@ -56,7 +56,7 @@ public class SlaveOrLabelColumn extends ListViewColumn {
         AbstractProject<?, ?> project = AbstractProject.class.cast(job);
         return project.getAssignedLabel();
     }
-    
+
     public String getDescription(Label label) {
         if (label == null) {
             return "";

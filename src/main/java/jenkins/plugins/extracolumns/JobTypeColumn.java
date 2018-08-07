@@ -34,7 +34,7 @@ import hudson.views.ListViewColumnDescriptor;
 public class JobTypeColumn extends ListViewColumn {
 
     private boolean usePronoun;
-    
+
     @DataBoundConstructor
     public JobTypeColumn(boolean usePronoun) {
         super();

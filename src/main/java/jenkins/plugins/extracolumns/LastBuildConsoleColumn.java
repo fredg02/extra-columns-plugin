@@ -31,13 +31,11 @@ import hudson.views.ListViewColumnDescriptor;
 
 public class LastBuildConsoleColumn extends ListViewColumn {
 
-    
     @DataBoundConstructor
     public LastBuildConsoleColumn() {
         super();
     }
 
-    
     @Extension
     public static class DescriptorImpl extends ListViewColumnDescriptor {
 

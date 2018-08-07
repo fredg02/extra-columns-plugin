@@ -55,7 +55,7 @@ public class DescriptionColumn extends ListViewColumn {
     public DescriptionColumn() {
         this(false, false, 1, 80, false);
     }
-    
+
     public boolean isDisplayName() {
         return displayName;
     }
@@ -79,11 +79,11 @@ public class DescriptionColumn extends ListViewColumn {
     public String getToolTip(AbstractItem job) {
         return formatDescription(job, false);
     }
-    
+
     public String getDescription(AbstractItem job){
         return formatDescription(job, isTrim());
     }
-    
+
     private String formatDescription(AbstractItem job, boolean trimIt) {
         if (job == null) {
             return null;

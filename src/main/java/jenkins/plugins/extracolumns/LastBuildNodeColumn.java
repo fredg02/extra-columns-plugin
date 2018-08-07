@@ -41,7 +41,7 @@ public class LastBuildNodeColumn extends ListViewColumn {
     public LastBuildNodeColumn() {
         super();
     }
-    
+
     public String getLastBuildNode(Job<?, ?> job) {
         Run<?, ?> lastBuild = job.getLastBuild();
         if (lastBuild instanceof AbstractBuild<?, ?>) {

@@ -36,7 +36,6 @@ public class BuildDescriptionColumn extends ListViewColumn {
     private int columnWidth;
     private boolean forceWidth;
 
-    
     @DataBoundConstructor
     public BuildDescriptionColumn(int columnWidth, boolean forceWidth) {
         super();
