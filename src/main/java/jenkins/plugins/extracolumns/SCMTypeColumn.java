@@ -24,12 +24,16 @@
 
 package jenkins.plugins.extracolumns;
 
+import java.util.Collection;
+
 import org.kohsuke.stapler.DataBoundConstructor;
 
 import hudson.Extension;
 import hudson.model.AbstractProject;
 import hudson.model.Job;
+import hudson.scm.SCM;
 import hudson.views.ListViewColumnDescriptor;
+import jenkins.model.Jenkins;
 import hudson.views.ListViewColumn;
 
 public class SCMTypeColumn extends ListViewColumn {
@@ -41,10 +45,27 @@ public class SCMTypeColumn extends ListViewColumn {
     }
 
     public String getScmType(@SuppressWarnings("rawtypes") Job job) {
-    	if(!(job instanceof AbstractProject<?, ?>))
-    		return "";
-        AbstractProject<?, ?> project = (AbstractProject<?, ?>) job;
-        return project.getScm().getDescriptor().getDisplayName();
+        if(job instanceof AbstractProject<?, ?>) {
+            AbstractProject<?, ?> project = (AbstractProject<?, ?>) job;
+            return project.getScm().getDescriptor().getDisplayName();
+        } else {
+            String simpleName = job.getClass().getSimpleName();
+            if ("WorkflowJob".equals(simpleName)) {
+                if (Jenkins.getInstance().getPlugin("workflow-job") != null) {
+                    org.jenkinsci.plugins.workflow.job.WorkflowJob wfj = (org.jenkinsci.plugins.workflow.job.WorkflowJob) job;
+                    Collection<? extends SCM> scms = wfj.getSCMs();
+                    if (scms.size() == 0) {
+                        return "N/A";
+                    }
+                    StringBuffer sb = new StringBuffer();
+                    for (SCM scm : scms) {
+                        sb.append(scm.getDescriptor().getDisplayName() + "\n");
+                    }
+                    return sb.toString();
+                }
+            }
+        }
+        return "N/A";
     }
 
     @Extension
