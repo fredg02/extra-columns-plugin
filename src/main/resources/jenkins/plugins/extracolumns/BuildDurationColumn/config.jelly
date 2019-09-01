@@ -25,7 +25,7 @@ THE SOFTWARE.
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt">
     <f:block>
-        <p>${%This column shows info about the build duration.}</p>
+        <p>${%This column shows the last build duration.}</p>
         <f:entry title="${%Show}">
             <select name="buildDurationType" class="setting-input">
                 <f:option value="0" selected="${instance.buildDurationType==0}">${%Build start}</f:option>
