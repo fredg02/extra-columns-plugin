@@ -37,26 +37,26 @@ import org.kohsuke.stapler.DataBoundConstructor;
 
 public class BuildParametersColumn extends ListViewColumn {
 
-    private boolean singlePara;
-    private String parameterName;
+    private boolean useRegex;
+    private String regex;
 
     @DataBoundConstructor
-    public BuildParametersColumn(boolean singlePara, String parameterName) {
+    public BuildParametersColumn(boolean useRegex, String regex) {
         super();
-        this.singlePara = singlePara;
-        this.parameterName = parameterName;
+        this.useRegex = useRegex;
+        this.regex = regex;
     }
 
     public BuildParametersColumn() {
         this(false, "");
     }
 
-    public boolean isSinglePara(){
-        return singlePara;
+    public boolean isUseRegex(){
+        return useRegex;
     }
 
-    public String getParameterName(){
-        return parameterName;
+    public String getRegex(){
+        return regex;
     }
 
     public String getBuildParameters(Job<?, ?> job) {
@@ -69,7 +69,7 @@ public class BuildParametersColumn extends ListViewColumn {
             if(action instanceof ParametersAction) {
                 ParametersAction pa = (ParametersAction)action;
                 for (ParameterValue p : pa.getParameters()) {
-                    if(!isSinglePara() || p.getName().equalsIgnoreCase(parameterName)){
+                    if(!isUseRegex() || p.getName().matches(regex)){
                         s.append(p.getShortDescription()).append("<br/>");
                     }
                 }
