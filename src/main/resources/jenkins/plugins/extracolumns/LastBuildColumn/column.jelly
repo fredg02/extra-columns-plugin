@@ -1,0 +1,57 @@
+<!--
+The MIT License
+
+Copyright (c) 2019, Frederic Gurr
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+-->
+
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:i="jelly:fmt">
+    <j:set var="lastBuild" value="${it.getBuild(job)}"/>
+    <j:choose>
+        <j:when test="${lastBuild != null}">
+            <j:choose>
+                <j:when test="${it.sortType==0}">
+                    <j:set var="sortData" value="${lastBuild.startTimeInMillis}"/>
+                    <j:set var="tooltip" value="${!it.useRelative ? lastBuild.timestampString : it.getLastBuildStartAbsoluteString(lastBuild)}"/>
+                    <j:set var="lastBuildString" value="${it.useRelative ? lastBuild.timestampString : it.getLastBuildStartAbsoluteString(lastBuild)}"/>
+                </j:when>
+                <j:when test="${it.sortType==1}">
+                    <j:set var="sortData" value="${it.buildEndTime(job)}"/>
+                    <j:set var="tooltip" value="${!it.useRelative ? it.getLastBuildEndRelativeString(lastBuild) : it.getLastBuildEndAbsoluteString(lastBuild)}"/>
+                    <j:set var="lastBuildString" value="${it.useRelative ? it.getLastBuildEndRelativeString(lastBuild) : it.getLastBuildEndAbsoluteString(lastBuild)}"/>
+                </j:when>
+            </j:choose>
+       </j:when>
+        <j:otherwise>
+            <j:set var="sortData" value="0"/>
+            <j:set var="lastBuildString" value="${%N/A}"/>
+            <j:set var="tooltip" value="${%N/A}"/>
+        </j:otherwise>
+    </j:choose>
+    <j:choose>
+        <j:when test="${it.showLink}">
+            <td data="${sortData}" tooltip="${tooltip}">${lastBuildString} - <a href="${jobBaseUrl}${job.shortUrl}${it.buildTypeUrl}/" class="model-link inside">${lastBuild.displayName}</a></td>
+        </j:when>
+        <j:otherwise>
+            <td data="${sortData}" tooltip="${tooltip}">${lastBuildString}</td>
+        </j:otherwise>
+    </j:choose>
+</j:jelly>
