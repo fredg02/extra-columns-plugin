@@ -29,7 +29,7 @@
     <f:block>
         <table>
             <tr>
-                <td colspan="3">${%This column shows the periodic build trigger for the job in cron format}</td>
+                <td colspan="3">${%This column shows the periodic build trigger for the job in cron format.}</td>
             </tr>
         </table>
     </f:block>
