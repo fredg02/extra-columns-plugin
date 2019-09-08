@@ -51,7 +51,7 @@ public class SCMTypeColumn extends ListViewColumn {
         } else {
             String simpleName = job.getClass().getSimpleName();
             if ("WorkflowJob".equals(simpleName)) {
-                Jenkins instance = Jenkins.getInstanceOrNull();
+                Jenkins instance = Jenkins.getInstance();
                 if (instance != null && instance.getPlugin("workflow-job") != null) {
                     org.jenkinsci.plugins.workflow.job.WorkflowJob wfj = (org.jenkinsci.plugins.workflow.job.WorkflowJob) job;
                     Collection<? extends SCM> scms = wfj.getSCMs();
