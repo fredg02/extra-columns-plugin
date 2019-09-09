@@ -43,7 +43,7 @@ public class LastBuildColumn extends ListViewColumn {
     private boolean useRelative = false;
     private boolean showLink = false;
 
-    private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private static final String DATEFORMAT = "yyyy-MM-dd HH:mm:ss";
 
     @DataBoundConstructor
     public LastBuildColumn(int sortType, int buildType, boolean useRelative, boolean showLink) {
@@ -138,6 +138,7 @@ public class LastBuildColumn extends ListViewColumn {
     }
 
     public String getLastBuildStartAbsoluteString(Run<?, ?> build){
+        SimpleDateFormat sdf = new SimpleDateFormat(DATEFORMAT);
         return sdf.format(build.getStartTimeInMillis());
     }
 
@@ -146,6 +147,7 @@ public class LastBuildColumn extends ListViewColumn {
     }
 
     public String getLastBuildEndAbsoluteString(Run<?, ?> build){
+        SimpleDateFormat sdf = new SimpleDateFormat(DATEFORMAT);
         return sdf.format(getBuildEndTimeInMillis(build));
     }
 
