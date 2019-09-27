@@ -98,21 +98,21 @@ public class LastBuildColumn extends ListViewColumn {
     public String getBuildTypeString() {
         switch (getBuildType()) {
         case 0:
-            return "Last Build";
+            return Messages.LastBuildColumn_LastBuild();
         case 1:
-            return "Last Completed Build";
+            return Messages.LastBuildColumn_LastCompletedBuild();
         case 2:
-            return "Last Failed Build";
+            return Messages.LastBuildColumn_LastFailedBuild();
         case 3:
-            return "Last Successful Build";
+            return Messages.LastBuildColumn_LastSuccessfulBuild();
         case 4:
-            return "Last Unsuccessful Build";
+            return Messages.LastBuildColumn_LastUnsuccessfulBuild();
         case 5:
-            return "Last Stable Build";
+            return Messages.LastBuildColumn_LastStableBuild();
         case 6:
-            return "Last Unstable Build";
+            return Messages.LastBuildColumn_LastUnstableBuild();
         default:
-            return "Last Build";
+            return Messages.LastBuildColumn_LastBuild();
         }
     }
 
