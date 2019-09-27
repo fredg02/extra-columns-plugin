@@ -15,6 +15,7 @@ It currently provides the following columns:
 * Configure build button
 * Disable/enable Project button/icon
 * Job type
+* Last build
 * Last build node
 * Last/current build console
 * Last project configuration modification
