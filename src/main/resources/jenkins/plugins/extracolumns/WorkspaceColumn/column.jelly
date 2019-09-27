@@ -33,7 +33,7 @@ THE SOFTWARE.
         </j:otherwise>
     </j:choose>
     <td>
-        <j:if test="${job.hasPermission(job.WORKSPACE)}">
+        <j:if test="${job.hasPermission(job.WORKSPACE) and it.showWorkspace(job)}">
           <a href="${ws_url}">
               <img src="${rootURL}/images/${iconSize}/folder.png" title="${%Workspace}" alt="${%Workspace}" border="0"/>
                 </a>

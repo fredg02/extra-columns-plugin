@@ -47,6 +47,11 @@ public class WorkspaceColumn extends ListViewColumn {
         return "WorkflowJob".equals(simpleName);
     }
 
+    public boolean showWorkspace(AbstractItem item) {
+        String simpleName = item.getClass().getSimpleName();
+        return !"Folder".equals(simpleName) && !"MatrixProject".equals(simpleName) && !"WorkflowMultiBranchProject".equals(simpleName);
+    }
+
     /**
      * Descriptor for the column.
      */
