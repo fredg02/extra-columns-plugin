@@ -47,7 +47,7 @@ THE SOFTWARE.
         </j:otherwise>
     </j:choose>
     <j:choose>
-        <j:when test="${it.showLink}">
+        <j:when test="${it.showLink and lastBuild != null}">
             <td data="${sortData}" tooltip="${tooltip}">${lastBuildString} - <a href="${jobBaseUrl}${job.shortUrl}${it.buildTypeUrl}/" class="model-link inside">${lastBuild.displayName}</a></td>
         </j:when>
         <j:otherwise>
