@@ -36,7 +36,7 @@ THE SOFTWARE.
     <td>
         <j:if test="${job.hasPermission(job.READ)}">
             <j:if test="${job.getLastBuild() != null}">
-                <a href="${jobBaseUrl}${job.shortUrl}lastBuild/console">
+                <a href="${jobBaseUrl}${job.shortUrl}lastBuild/console#footer">
                     <img src="${imgUrl}/${iconSize}/terminal.png" title="${%Last/current build console output}" alt="${%Last/current build console output}" border="0"/>
                 </a>
             </j:if>
